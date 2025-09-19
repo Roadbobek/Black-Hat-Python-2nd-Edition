@@ -1,0 +1,35 @@
+1. --- Creating a Socket ---
+The line client = socket.socket(socket.AF_INET, socket.SOCK_STREAM) creates a socket object.
+A socket acts as an endpoint for communication. Think of it as a virtual mailbox or a specific phone number for a program on a computer.
+
+socket.AF_INET: Specifies the address family as IPv4, indicating the use of standard internet addresses like 127.0.0.1 or www.google.com.
+
+socket.SOCK_STREAM: Defines the socket type as a stream socket, which is used for the TCP (Transmission Control Protocol) protocol.
+TCP is a connection-oriented protocol that ensures reliable, ordered, and error-checked delivery of data.
+
+2. --- Connecting to the Server ---
+The client.connect((target_host, target_port)) method initiates a three-way handshake with the server.
+This handshake is the fundamental mechanism for establishing a reliable TCP connection. The client sends a synchronization request (SYN),
+the server responds with a SYN-ACK, and the client sends a final ACK to complete the connection.
+
+3. --- Sending Data ---
+The client.send(b"GET / HTTP/1.1\r\nHost: google.com\r\n\r\n") method sends a specially formatted message, known as an HTTP request to the connected server.
+
+b"": The b prefix denotes a byte string. Network communication always works with raw bytes, so the string must be encoded before it's sent.
+
+GET / HTTP/1.1: The request line. GET is the HTTP method, / is the path to the resource (in this case, the homepage), and HTTP/1.1 is the protocol version.
+
+Host: google.com: An HTTP header that specifies the domain name of the server the request is intended for. This is crucial for servers that host multiple websites.
+
+\r\n\r\n: The carriage return and line feed sequence marks the end of the HTTP headers and the beginning of the message body (which is empty in this GET request).
+
+4. --- Receiving a Response ---
+The response = client.recv(4096) method waits for data to be received from the server.
+The number 4096 represents the maximum number of bytes the script is willing to receive at one time.
+Once the server sends its response (an HTTP response containing headers and HTML content), this method reads up to 4096 bytes and stores them.
+
+5. --- Decoding and Displaying ---
+Finally, print(response.decode()) converts the received byte string back into a human-readable UTF-8 encoded string and prints it to the console.
+This is the server's response, which typically includes the HTML for the requested web page. The script then calls client.close() to properly terminate the connection.
+
+Experiment with this code by using different hosts, for example edit target_host = "www.google.com" on line 8 and 'Host: google.com' on line 20 to another website.
