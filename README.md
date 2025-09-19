@@ -9,7 +9,6 @@ The book can be found here for free, [***Black Hat Python, 2nd Edition***](https
 ***
 
 ## Netenvy
-
 A very simple reverse cross-platform python reverse shell.
 
 Execute commands remotely over the network on any Unix/Windows operating system.
